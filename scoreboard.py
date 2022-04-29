@@ -22,13 +22,6 @@ class ScoreBoard(Turtle):
         self.score += 1
         self.update_scoreboard()
     
-    def game_over(self):
-        go = Turtle()
-        go.penup()
-        go.color("white")
-        go.goto(0,0)
-        go.write("GAME OVER", align=ALIGN, font=FONT)
-    
     def reset(self):
         if self.score > self.highscore:
             self.highscore = self.score
