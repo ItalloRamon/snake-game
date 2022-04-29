@@ -15,11 +15,9 @@ screen.listen()
 snake = Snake()
 food = Food()
 
-##Create the scoreboard fixed and moving
-score_fixed = ScoreBoard()
-sc = 0
-score_move = ScoreBoard()
-score_move.add_score(sc)
+##Create the scoreboard
+scoreboard = ScoreBoard()
+
 
 screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
@@ -38,19 +36,17 @@ while game_is_on:
         snake.extend()
 
         ##Update the scoreboard
-        sc += 1
-        score_move.clear()
-        score_move.add_score(sc)
+        scoreboard.increase_score()
     
     #Detect collision with the wall
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_is_on = False
-        score_fixed.game_over()
-
+        scoreboard.reset()
+        snake.restart()
+        
     #Detect collision with the tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            score_fixed.game_over()
+            scoreboard.reset()
+            snake.restart()
                 
 screen.exitonclick()
